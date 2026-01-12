@@ -48,7 +48,7 @@ The questionnaire uses Saaty's AHP methodology:
 ## 📧 Contact
 
 **Lise Bachmann**  
-Doctoral Researcher - EPFL  
+PhD student - EPFL  
 Email: lise.bachmann@epfl.ch
 
 ## 📄 License
