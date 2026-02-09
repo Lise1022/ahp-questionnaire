@@ -113,33 +113,33 @@ macro_descriptions = {
 all_criteria = {
     # Structural safety & performance (C1-C5)
     "C1": ("Failure mode of the composite section", "M1: Structural safety & performance",
-           "Which component fails first (concrete/steel/connector) and nature of failure (ductile/brittle)"),
+           "This criterion evaluates which component fails first (concrete slab, steel beam, or connector) at the level of the composite cross-section. To guarantee the future reusability of the elements, failure in the connector is preferred as it allows the structural components (beam and slab) to remain undamaged and suitable for reuse."),
     "C2": ("Compliance with EC4 ductility requirements", "M1: Structural safety & performance",
-           "Meets EC4 requirement: characteristic slip ≥ 6 mm before failure"),
+           "Eurocode 4 requires shear connectors to achieve a characteristic slip capacity (slip > 6 mm) before failure to be classified as ductile. This threshold ensures adequate deformation capacity and allows for moment redistribution in the composite beam."),
     "C3": ("Initial shear stiffness", "M1: Structural safety & performance",
-           "Elastic stiffness magnitude for deflection control under service loads"),
+           "The connector's elastic stiffness governs deflections and vibrations under service loads. A gradual stiffness degradation (without sudden drops in resistance) is preferred for this study, as maintaining higher stiffness throughout the loading history reduces deformations and improves dynamic behavior, which is critical for serviceability performance."),
     "C4": ("Delay or avoidance of first slip", "M1: Structural safety & performance",
-           "Avoidance or delay of first slip before reaching service load levels"),
+           "First slip represents the initiation of non-linear behavior at the steel-concrete interface. Delaying or avoiding first slip improves serviceability performance by reducing long-term deformations and maintaining structural stiffness."),
     "C5": ("Shear resistance", "M1: Structural safety & performance",
-           "Ultimate shear capacity for safety verification under extreme loads"),
+           "The ultimate shear capacity of the connector is fundamental for structural safety under extreme loads. This is a mandatory requirement for ultimate limit state (ULS) design verification."),
     
     # Serviceability & compatibility (C6-C7)
     "C6": ("Compatibility with reused concrete slabs", "M2: Serviceability & compatibility",
-           "Ability to be used with existing concrete slabs via post-installation (drilling + grouting)"),
-    "C7": ("Compactness for double-slab configuration", "M2: Serviceability & compatibility",
-           "Compact enough to fit two slabs side-by-side on standard rolled steel profiles"),
+           "Since reused slabs are already fabricated and cannot be modified during casting, the connector must be compatible with post-installation techniques such as drilling and grouting. In other words, the primary objective is to place the tolerance in the concrete rather than requiring precise pre-cast provisions."),
+    "C7": ("Size for double-slab configuration", "M2: Serviceability & compatibility",
+           "Using reused slabs requires placing two separate slabs on either side of the steel beam's top flange. The connector must be sufficiently compact to fit within standard beam flange widths without requiring custom-fabricated wide-flange sections. It should be noted that this study considers steel beams with relatively compact cross-sections, as the project's application scope targets office and industrial buildings."),
     
     # Constructability & practicality (C8-C9)
     "C8": ("Constructability and ease of assembly on-site", "M3: Constructability & practicality",
-           "Simplicity for site workers: few steps, low precision required, quick installation"),
+           "The connector must be practical for construction workers to install under typical site constraints. Simple, fast installation reduces labor costs, construction time, and risk of errors."),
     "C9": ("Simplicity of connector components", "M3: Constructability & practicality",
-           "Use of standard catalog components vs custom parts; number of components required"),
+           "Connectors using standard catalog components (bolts, washers, threaded rods) are more economical and have shorter lead times than those requiring custom-made parts. Design simplicity also reduces fabrication costs and supply chain dependencies."),
     
     # Durability & circularity (C10-C11)
     "C10": ("Maintenance requirements during service life", "M4: Durability & circularity",
-            "Need for inspections, corrosion protection, prestress monitoring, fire protection"),
+            "Connectors requiring periodic inspections, corrosion protection, or prestress monitoring increase life-cycle costs and operational disruptions. Low-maintenance or maintenance-free designs are preferred."),
     "C11": ("Demountability and reuse potential", "M4: Durability & circularity",
-            "Ease of deconstruction; reusability of beam/slab; connector replaceability")
+            "This criterion evaluates from a practical perspective whether the beam-slab assembly can be easily deconstructed and whether the connector can be readily replaced if necessary. Unlike criterion C1, which focuses on failure at the cross-section level, C11 assesses the ease of disassembly to enable component reuse and align with circular economy principles.")
 }
 
 # Codes par famille
