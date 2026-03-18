@@ -553,12 +553,12 @@ st.markdown("Compare the importance of the four macro-criteria families.")
 
 # Ordre des comparaisons: M1 vs M2 en premier (plus logique)
 macro_comps = [
-    ((0,1), "M1", "M2", "Mechanical performance", "Serviceability"),
+    ((0,1), "M1", "M2", "Mechanical performance", "Compatibility"),
     ((0,2), "M1", "M3", "Mechanical performance", "Constructibility"),
-    ((0,3), "M1", "M4", "Mechanical performance", "Durability"),
-    ((1,2), "M2", "M3", "Serviceability", "Constructibility"),
-    ((1,3), "M2", "M4", "Serviceability", "Durability"),
-    ((2,3), "M3", "M4", "Constructability", "Durability")
+    ((0,3), "M1", "M4", "Mechanical performance", "Circularity"),
+    ((1,2), "M2", "M3", "Compatibility", "Constructibility"),
+    ((1,3), "M2", "M4", "Compatibility", "Circularity"),
+    ((2,3), "M3", "M4", "Constructibility", "Circularity")
 ]
 
 if use_sliders:
