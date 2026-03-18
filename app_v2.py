@@ -92,10 +92,10 @@ if 'durability_judgment' not in st.session_state:
 
 # Macro-criteria
 macro_criteria = [
-    "M1: Structural performance",
+    "M1: Mechanical performance",
     "M2: Compatibility",
-    "M3: Constructability",
-    "M4: Durability"
+    "M3: Constructibility",
+    "M4: Circularity"
 ]
 
 macro_short = ["M1", "M2", "M3", "M4"]
@@ -108,19 +108,19 @@ macro_descriptions = {
 }
 
 # Critères regroupés par famille avec indices cohérents
-# Structural: C1-C5, Serviceability: C6-C7, Constructability: C8-C9, Durability: C10-C11
+# Mechanical: C1-C5, Serviceability: C6-C7, Constructibility: C8-C9, Circularity: C10-C11
 
 all_criteria = {
-    # Structural performance (C1-C5)
-    "C1": ("Failure mode of the composite section", "M1: Structural performance",
+    # Mechanical performance (C1-C5)
+    "C1": ("Desired failure mode", "M1: Mechanical performance",
            "This criterion evaluates which component fails first (concrete slab, steel beam, or connector) at the level of the composite cross-section. To guarantee the future reusability of the elements, failure in the connector is preferred as it allows the structural components (beam and slab) to remain undamaged and suitable for reuse."),
-    "C2": ("Compliance with EC4 ductility requirements", "M1: Structural performance",
+    "C2": ("Compliance with EN1994-1-1 ductility requirements", "M1: Mechanical performance",
            "Eurocode 4 requires shear connectors to achieve a characteristic slip capacity (slip > 6 mm) before failure to be classified as ductile. This threshold ensures adequate deformation capacity and allows for moment redistribution in the composite beam."),
-    "C3": ("Initial shear stiffness", "M1: Structural performance",
+    "C3": ("Degradation of shear stiffness", "M1: Mechanical performance",
            "The connector's elastic stiffness governs deflections and vibrations under service loads. A gradual stiffness degradation (without sudden drops in resistance) is preferred for this study, as maintaining higher stiffness throughout the loading history reduces deformations and improves dynamic behavior, which is critical for serviceability performance."),
-    "C4": ("Delay or avoidance of first slip", "M1: Structural performance",
+    "C4": ("Presence of slip", "M1: Mechanical performance",
            "First slip represents the initiation of non-linear behavior at the steel-concrete interface. Delaying or avoiding first slip improves serviceability performance by reducing long-term deformations and maintaining structural stiffness."),
-    "C5": ("Shear resistance", "M1: Structural performance",
+    "C5": ("Ultimate shear resistance", "M1: Mechanical performance",
            "The ultimate shear capacity of the connector is fundamental for structural safety under extreme loads. This is a mandatory requirement for ultimate limit state (ULS) design verification."),
     
     # Compatibility (C6-C7)
@@ -129,16 +129,16 @@ all_criteria = {
     "C7": ("Size for double-slab configuration", "M2: Compatibility",
            "Using reused slabs requires placing two separate slabs on either side of the steel beam's top flange. The connector must be sufficiently compact to fit within standard beam flange widths without requiring custom-fabricated wide-flange sections. It should be noted that this study considers steel beams with relatively compact cross-sections, as the project's application scope targets office and industrial buildings."),
     
-    # Constructability (C8-C9)
-    "C8": ("Constructability and ease of assembly on-site", "M3: Constructability",
+    # Constructibility (C8-C9)
+    "C8": ("Constructibility and ease of on-site assembly", "M3: Constructibility",
            "The connector must be practical for construction workers to install under typical site constraints. Simple, fast installation reduces labor costs, construction time, and risk of errors."),
-    "C9": ("Simplicity of connector components", "M3: Constructability",
+    "C9": ("Connector design complexity", "M3: Constructibility",
            "Connectors using standard catalog components (bolts, washers, threaded rods) are more economical and have shorter lead times than those requiring custom-made parts. Design simplicity also reduces fabrication costs and supply chain dependencies."),
     
-    # Durability (C10-C11)
-    "C10": ("Maintenance requirements during service life", "M4: Durability",
+    # Circularity (C10-C11)
+    "C10": ("Maintenance requirements during service life", "M4: Circularity",
             "Connectors requiring periodic inspections, corrosion protection, or prestress monitoring increase life-cycle costs and operational disruptions. Low-maintenance or maintenance-free designs are preferred."),
-    "C11": ("Demountability and reuse potential", "M4: Durability",
+    "C11": ("Demountability and reuse potential", "M4: Circularity",
             "This criterion evaluates from a practical perspective whether the beam-slab assembly can be easily deconstructed and whether the connector can be readily replaced if necessary. Unlike criterion C1, which focuses on failure at the cross-section level, C11 assesses the ease of disassembly to enable component reuse and align with circular economy principles.")
 }
 
@@ -489,7 +489,7 @@ with st.expander("📖 Complete Guide — How to Fill in This Questionnaire", ex
 with st.expander("📚 Criteria Definitions", expanded=False):
     st.markdown("### Criteria grouped by family")
     
-    st.markdown("#### 🔴 M1: Structural performance")
+    st.markdown("#### 🔴 M1: Mechanical performance")
     for code in structural_codes:
         name, _, desc = all_criteria[code]
         st.markdown(f"**{code} - {name}**")
@@ -501,13 +501,13 @@ with st.expander("📚 Criteria Definitions", expanded=False):
         st.markdown(f"**{code} - {name}**")
         st.caption(desc)
     
-    st.markdown("#### 🟡 M3: Constructability")
+    st.markdown("#### 🟡 M3: Constructibility")
     for code in constructability_codes:
         name, _, desc = all_criteria[code]
         st.markdown(f"**{code} - {name}**")
         st.caption(desc)
     
-    st.markdown("#### 🟢 M4: Durability")
+    st.markdown("#### 🟢 M4: Circularity")
     for code in durability_codes:
         name, _, desc = all_criteria[code]
         st.markdown(f"**{code} - {name}**")
@@ -553,10 +553,10 @@ st.markdown("Compare the importance of the four macro-criteria families.")
 
 # Ordre des comparaisons: M1 vs M2 en premier (plus logique)
 macro_comps = [
-    ((0,1), "M1", "M2", "Structural safety", "Serviceability"),
-    ((0,2), "M1", "M3", "Structural safety", "Constructability"),
-    ((0,3), "M1", "M4", "Structural safety", "Durability"),
-    ((1,2), "M2", "M3", "Serviceability", "Constructability"),
+    ((0,1), "M1", "M2", "Mechanical performance", "Serviceability"),
+    ((0,2), "M1", "M3", "Mechanical performance", "Constructibility"),
+    ((0,3), "M1", "M4", "Mechanical performance", "Durability"),
+    ((1,2), "M2", "M3", "Serviceability", "Constructibility"),
     ((1,3), "M2", "M4", "Serviceability", "Durability"),
     ((2,3), "M3", "M4", "Constructability", "Durability")
 ]
@@ -648,7 +648,7 @@ st.markdown("---")
 st.header("2️⃣ Level 2: Internal Criteria Comparisons")
 
 # STRUCTURAL (C1-C5)
-with st.expander("🔴 M1: Structural Safety & Performance (C1-C5)", expanded=True):
+with st.expander("🔴 M1: Mechanical performance (C1-C5)", expanded=True):
     data = compute_all_weights()
     w_macro = data['macro']['weights']
     st.markdown(f"**Macro-criterion weight: {w_macro[0]*100:.2f}%**")
@@ -732,7 +732,7 @@ with st.expander("🔴 M1: Structural Safety & Performance (C1-C5)", expanded=Tr
             st.warning(f"⚠️ CR: {CR_struct:.4f}")
 
 # SERVICEABILITY (C6-C7)
-with st.expander("🔵 M2: Serviceability & Compatibility (C6-C7)", expanded=True):
+with st.expander("🔵 M2: Compatibility (C6-C7)", expanded=True):
     data = compute_all_weights()
     w_macro = data['macro']['weights']
     st.markdown(f"**Macro-criterion weight: {w_macro[1]*100:.2f}%**")
@@ -785,7 +785,7 @@ with st.expander("🔵 M2: Serviceability & Compatibility (C6-C7)", expanded=Tru
     st.dataframe(df, hide_index=True, use_container_width=True)
 
 # CONSTRUCTABILITY (C8-C9)
-with st.expander("🟡 M3: Constructability (C8-C9)", expanded=True):
+with st.expander("🟡 M3: Constructibility (C8-C9)", expanded=True):
     data = compute_all_weights()
     w_macro = data['macro']['weights']
     st.markdown(f"**Macro-criterion weight: {w_macro[2]*100:.2f}%**")
@@ -838,7 +838,7 @@ with st.expander("🟡 M3: Constructability (C8-C9)", expanded=True):
     st.dataframe(df, hide_index=True, use_container_width=True)
 
 # DURABILITY (C10-C11)
-with st.expander("🟢 M4: Durability & Circularity (C10-C11)", expanded=True):
+with st.expander("🟢 M4: Circularity (C10-C11)", expanded=True):
     data = compute_all_weights()
     w_macro = data['macro']['weights']
     st.markdown(f"**Macro-criterion weight: {w_macro[3]*100:.2f}%**")
@@ -940,7 +940,7 @@ with st.expander("🔍 Calculation Details", expanded=False):
         st.markdown(f"- **{macro_short[i]}** ({macro_criteria[i].split(': ')[1]}): {w_macro_final[i]:.4f} ({w_macro_final[i]*100:.2f}%)")
     
     st.markdown("---")
-    st.markdown("#### M1: Structural Safety (× local weights)")
+    st.markdown("#### M1: Mechanical performance (× local weights)")
     for i, code in enumerate(structural_codes):
         gw = global_weights[code]
         st.markdown(f"- **{code}**: {w_macro_final[0]:.4f} × {w_struct_final[i]:.4f} = {gw:.4f} ({gw*100:.2f}%)")
@@ -976,10 +976,10 @@ weights_plot = [w * 100 for _, w in reversed(sorted_criteria)]
 
 # Nuances de gris professionnelles avec hachures distinctives
 color_map = {
-    "M1": ('#4a4a4a', '\\\\'),   # Gris foncé - Structural
-    "M2": ('#8a8a8a', ''),        # Gris moyen - Serviceability
-    "M3": ('#b0b0b0', 'xxx'),     # Gris clair - Constructability
-    "M4": ('#6a6a6a', '///')      # Gris moyen-foncé - Durability
+    "M1": ('#4a4a4a', '\\\\'),   # Gris foncé - Structural performance
+    "M2": ('#8a8a8a', ''),        # Gris moyen - Compatibility
+    "M3": ('#b0b0b0', 'xxx'),     # Gris clair - Constructibility
+    "M4": ('#6a6a6a', '///')      # Gris moyen-foncé - Circularity
 }
 
 colors = [color_map[all_criteria[c][1].split(': ')[0]][0] for c in codes_plot]
@@ -1006,7 +1006,7 @@ ax.grid(axis='x', alpha=0.3, linestyle='--', linewidth=0.5)
 
 # Légende avec nuances de gris
 legend_elements = [
-    Patch(facecolor='#4a4a4a', edgecolor='black', hatch='\\\\', label='M1: Structural safety'),
+    Patch(facecolor='#4a4a4a', edgecolor='black', hatch='\\\\', label='M1: Mechanical performance'),
     Patch(facecolor='#8a8a8a', edgecolor='black', label='M2: Serviceability'),
     Patch(facecolor='#b0b0b0', edgecolor='black', hatch='xxx', label='M3: Constructability'),
     Patch(facecolor='#6a6a6a', edgecolor='black', hatch='///', label='M4: Durability')
@@ -1075,16 +1075,16 @@ TIMESTAMP: {timestamp}
 MACRO-CRITERIA MATRIX (M1-M4)
 {pd.DataFrame(A_macro_final, columns=macro_short, index=macro_short).to_csv()}
 
-STRUCTURAL SAFETY MATRIX (C1-C5)
+MECHANICAL PERFORMANCE MATRIX (C1-C5)
 {pd.DataFrame(A_struct_final, columns=structural_codes, index=structural_codes).to_csv()}
 
-SERVICEABILITY MATRIX (C6-C7)
+COMPATIBILITY MATRIX (C6-C7)
 {pd.DataFrame(A_serv_final, columns=serviceability_codes, index=serviceability_codes).to_csv()}
 
 CONSTRUCTABILITY MATRIX (C8-C9)
 {pd.DataFrame(A_constr_final, columns=constructability_codes, index=constructability_codes).to_csv()}
 
-DURABILITY MATRIX (C10-C11)
+CIRCULARITY MATRIX (C10-C11)
 {pd.DataFrame(A_durab_final, columns=durability_codes, index=durability_codes).to_csv()}
 
 FINAL RANKING
