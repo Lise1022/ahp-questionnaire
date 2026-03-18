@@ -647,7 +647,7 @@ st.markdown("---")
 
 st.header("2️⃣ Level 2: Internal Criteria Comparisons")
 
-# STRUCTURAL (C1-C5)
+# MECHANICAL PERFORMANCE (C1-C5)
 with st.expander("🔴 M1: Mechanical performance (C1-C5)", expanded=True):
     data = compute_all_weights()
     w_macro = data['macro']['weights']
@@ -731,7 +731,7 @@ with st.expander("🔴 M1: Mechanical performance (C1-C5)", expanded=True):
         else:
             st.warning(f"⚠️ CR: {CR_struct:.4f}")
 
-# SERVICEABILITY (C6-C7)
+# COMPATIBILITY (C6-C7)
 with st.expander("🔵 M2: Compatibility (C6-C7)", expanded=True):
     data = compute_all_weights()
     w_macro = data['macro']['weights']
@@ -784,7 +784,7 @@ with st.expander("🔵 M2: Compatibility (C6-C7)", expanded=True):
     })
     st.dataframe(df, hide_index=True, use_container_width=True)
 
-# CONSTRUCTABILITY (C8-C9)
+# CONSTRUCTIBILITY (C8-C9)
 with st.expander("🟡 M3: Constructibility (C8-C9)", expanded=True):
     data = compute_all_weights()
     w_macro = data['macro']['weights']
@@ -837,7 +837,7 @@ with st.expander("🟡 M3: Constructibility (C8-C9)", expanded=True):
     })
     st.dataframe(df, hide_index=True, use_container_width=True)
 
-# DURABILITY (C10-C11)
+# CIRCULARITY (C10-C11)
 with st.expander("🟢 M4: Circularity (C10-C11)", expanded=True):
     data = compute_all_weights()
     w_macro = data['macro']['weights']
@@ -946,19 +946,19 @@ with st.expander("🔍 Calculation Details", expanded=False):
         st.markdown(f"- **{code}**: {w_macro_final[0]:.4f} × {w_struct_final[i]:.4f} = {gw:.4f} ({gw*100:.2f}%)")
     
     st.markdown("---")
-    st.markdown("#### M2: Serviceability (× local weights)")
+    st.markdown("#### M2: Compatibility (× local weights)")
     for i, code in enumerate(serviceability_codes):
         gw = global_weights[code]
         st.markdown(f"- **{code}**: {w_macro_final[1]:.4f} × {w_serv_final[i]:.4f} = {gw:.4f} ({gw*100:.2f}%)")
     
     st.markdown("---")
-    st.markdown("#### M3: Constructability (× local weights)")
+    st.markdown("#### M3: Constructibility (× local weights)")
     for i, code in enumerate(constructability_codes):
         gw = global_weights[code]
         st.markdown(f"- **{code}**: {w_macro_final[2]:.4f} × {w_constr_final[i]:.4f} = {gw:.4f} ({gw*100:.2f}%)")
     
     st.markdown("---")
-    st.markdown("#### M4: Durability (× local weights)")
+    st.markdown("#### M4: Circularity (× local weights)")
     for i, code in enumerate(durability_codes):
         gw = global_weights[code]
         st.markdown(f"- **{code}**: {w_macro_final[3]:.4f} × {w_durab_final[i]:.4f} = {gw:.4f} ({gw*100:.2f}%)")
@@ -976,7 +976,7 @@ weights_plot = [w * 100 for _, w in reversed(sorted_criteria)]
 
 # Nuances de gris professionnelles avec hachures distinctives
 color_map = {
-    "M1": ('#4a4a4a', '\\\\'),   # Gris foncé - Structural performance
+    "M1": ('#4a4a4a', '\\\\'),   # Gris foncé - Mechanical performance
     "M2": ('#8a8a8a', ''),        # Gris moyen - Compatibility
     "M3": ('#b0b0b0', 'xxx'),     # Gris clair - Constructibility
     "M4": ('#6a6a6a', '///')      # Gris moyen-foncé - Circularity
@@ -1007,9 +1007,9 @@ ax.grid(axis='x', alpha=0.3, linestyle='--', linewidth=0.5)
 # Légende avec nuances de gris
 legend_elements = [
     Patch(facecolor='#4a4a4a', edgecolor='black', hatch='\\\\', label='M1: Mechanical performance'),
-    Patch(facecolor='#8a8a8a', edgecolor='black', label='M2: Serviceability'),
-    Patch(facecolor='#b0b0b0', edgecolor='black', hatch='xxx', label='M3: Constructability'),
-    Patch(facecolor='#6a6a6a', edgecolor='black', hatch='///', label='M4: Durability')
+    Patch(facecolor='#8a8a8a', edgecolor='black', label='M2: Compatibility'),
+    Patch(facecolor='#b0b0b0', edgecolor='black', hatch='xxx', label='M3: Constructibility'),
+    Patch(facecolor='#6a6a6a', edgecolor='black', hatch='///', label='M4: Circularity')
 ]
 ax.legend(handles=legend_elements, loc='lower right', fontsize=8, framealpha=0.95)
 
